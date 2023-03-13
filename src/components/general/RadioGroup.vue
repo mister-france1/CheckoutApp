@@ -44,6 +44,7 @@ const value = computed({
     line-height: 24px;
     color: #4B4E68;
     margin-left: 10px;
+    width: 100%;
   }
 
   .q-item {

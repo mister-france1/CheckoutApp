@@ -2,6 +2,7 @@
   <q-input v-model="value"
            :label="label"
            :type="type"
+           :mask="mask"
            :class="['input', {'notEmpty': !!modelValue, 'noIcon': !icon}]"
            rounded
            outlined>
@@ -16,7 +17,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const props = defineProps(['modelValue', 'label', 'type', 'icon']);
+const props = defineProps(['modelValue', 'label', 'type', 'icon', 'mask']);
 const emit = defineEmits(['update:modelValue']);
 
 const value = computed({

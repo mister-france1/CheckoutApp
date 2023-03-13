@@ -11,11 +11,11 @@
 import { ref } from 'vue';
 import RadioGroup from 'components/general/RadioGroup.vue';
 
-const shippingMethod = ref(null);
+const shippingMethod = ref(10);
 
 const options = [
-  { label: 'Free shipping', price: '$10', val: '10',  },
-  { label: 'DHL with price', price: '$20', val: '20', color: '#4B4E68' }
+  { label: 'Free shipping', price: '$10', val: 10,  },
+  { label: 'DHL with price', price: '$20', val: 20, color: '#4B4E68' }
 ];
 </script>
 

@@ -24,6 +24,11 @@ const minutes = ref(10);
 const seconds = ref(0);
 
 const timer = setInterval(() => {
+  if (minutes.value === 0 && seconds.value === 0) {
+    clearInterval(timer);
+    return;
+  }
+
   if (seconds.value > 0) {
     seconds.value--;
   } else {
