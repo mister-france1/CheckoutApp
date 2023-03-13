@@ -1,0 +1,77 @@
+@import 'src/css/mixins';
+
+@mixin placeholderActive() {
+  font-size: 12px;
+  line-height: 18px;
+  color: #84849A;
+  z-index: 999;
+  background-color: #fff;
+  transform: unset;
+
+  top: -10px;
+  left: -35px;
+}
+
+@mixin inputSelectBase() {
+  .q-field__control {
+    border-radius: 100px;
+    color: #D6D8EE;
+  }
+
+  &.q-field--outlined .q-field__control:before,
+  &.q-field--outlined:hover .q-field__control:before {
+    border: 1.5px solid #D6D8EE;
+  }
+
+  .q-field__label {
+    @include text();
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #979AB8;
+    transition: all 0.2s ease;
+  }
+
+  .q-field__native {
+    padding: 8px 0;
+    @include text();
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #84849A;
+  }
+
+  .q-field__native:focus-within + .q-field__label {
+    @include placeholderActive();
+  }
+
+  .icon {
+    margin-left: 27px;
+  }
+
+  .q-field__prepend {
+    padding-right: 10px;
+    pointer-events: none;
+  }
+
+  .q-field__control-container {
+  }
+
+  &.notEmpty {
+    .q-field__native + .q-field__label {
+      @include placeholderActive();
+    }
+  }
+
+  &.noIcon {
+    .q-field__native:focus-within + .q-field__label {
+      left: 0;
+    }
+
+    &.notEmpty {
+      .q-field__native + .q-field__label {
+        left: 0;
+      }
+    }
+  }
+}
