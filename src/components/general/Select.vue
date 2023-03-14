@@ -1,13 +1,17 @@
 <template>
   <q-select v-model="value"
-           :label="label"
-           :type="type"
-           :class="['select', {'notEmpty': !!modelValue, 'noIcon': !icon}]"
-           rounded
-           outlined>
+            :label="label"
+            :type="type"
+            lazy-rules="ondemand"
+            :rules="rules"
+            :class="['select', {'notEmpty': !!modelValue, 'noIcon': !icon}]"
+            rounded
+            outlined
+            no-error-icon
+            hide-bottom-space>
 
     <template v-slot:prepend>
-      <img v-if="icon" class="icon" :src="require('assets/'+icon)" />
+      <img v-if="icon" class="icon" :src="require('assets/'+icon)"/>
     </template>
 
   </q-select>
@@ -16,8 +20,17 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const props = defineProps(['modelValue', 'label', 'type', 'icon']);
+const props = defineProps(['modelValue', 'label', 'type', 'icon', 'required', 'validators']);
 const emit = defineEmits(['update:modelValue']);
+
+const requiredValidator = [(val: string) => !!val || props.required || 'Field is required'];
+
+const rules = computed(() => {
+  return [
+    ...(props.required ? requiredValidator : []),
+    ...(props.validators ? props.validators : [])
+  ];
+});
 
 const value = computed({
   get() {

@@ -3,32 +3,54 @@
            :label="label"
            :type="type"
            :mask="mask"
+           lazy-rules="ondemand"
+           :rules="rules"
            :class="['input', {'notEmpty': !!modelValue, 'noIcon': !icon}]"
            rounded
-           outlined>
+           outlined
+           no-error-icon
+           hide-bottom-space>
 
     <template v-slot:prepend>
-      <img v-if="icon" class="icon" :src="require('assets/'+icon)" />
+      <slot>
+        <img v-if="icon" class="icon" :src="require('assets/'+icon)"/>
+      </slot>
     </template>
 
   </q-input>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed, watch } from 'vue';
+import DELAY_TIME from 'src/constants/delayTime';
 
-const props = defineProps(['modelValue', 'label', 'type', 'icon', 'mask']);
+const props = defineProps(['modelValue', 'label', 'type', 'icon', 'mask', 'required', 'validators']);
 const emit = defineEmits(['update:modelValue']);
 
-const value = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit('update:modelValue', value);
-  }
+const requiredValidator = [(val: string) => !!val || props.required || 'Field is required'];
+
+const rules = computed(() => {
+  return [
+    ...(props.required ? requiredValidator : []),
+    ...(props.validators ? props.validators : [])
+  ];
 });
 
+const value = ref();
+let inputTimer: ReturnType<typeof setTimeout>;
+
+watch(
+  [value],
+  ([newValue], [oldValue]) => {
+    if (newValue !== oldValue) {
+      clearTimeout(inputTimer);
+
+      inputTimer = setTimeout(() => {
+        emit('update:modelValue', newValue);
+      }, DELAY_TIME);
+    }
+  }
+);
 </script>
 
 <style lang="scss">
@@ -37,7 +59,5 @@ const value = computed({
 .input {
   @include inputSelectBase();
 }
-
-
 </style>
 

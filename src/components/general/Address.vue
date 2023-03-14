@@ -1,43 +1,112 @@
 <template>
   <div class="address">
     <div class="countryWrapper">
-      <Select v-model="country" :options="CountryList" label="Country" type="text" icon="country.svg" />
+      <Select v-model="country" :options="CountryList" label="Country" type="text" icon="country.svg" required="Select a country"/>
     </div>
     <div class="row-wrapper">
       <div class="col">
-        <Input v-model="firstName" label="First Name" type="text" icon="name.svg" />
+        <Input v-model="firstName" label="First Name" type="text" icon="name.svg" required="Enter a first name"/>
       </div>
       <div class="col">
-        <Input v-model="lastName" label="Last Name" type="text" icon="name.svg" />
+        <Input v-model="lastName" label="Last Name" type="text" icon="name.svg" required="Enter a last name"/>
       </div>
     </div>
     <div class="addressWrapper">
-      <Input v-model="address" label="Address" type="text" icon="address.svg" />
+      <Input v-model="address" label="Address" type="text" icon="address.svg" required="Enter an address"/>
     </div>
     <div class="row-wrapper">
       <div class="col">
-        <Input v-model="city" label="City" type="text" />
+        <Input v-model="city" label="City" type="text" required="Enter a city"/>
       </div>
       <div class="col">
-        <Input v-model="postalCode" label="Postal Code" type="text" />
+        <Input v-model="postalCode" label="Postal Code" type="text" required="Enter a postal code"/>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import Input from './Input.vue';
 import Select from './Select.vue';
 import CountryList from 'src/constants/countryList';
+import { useCheckoutStore } from 'stores/checkout-store';
 
-import { ref } from 'vue';
+const props = defineProps({
+  name: {
+    type: String,
+    required: true
+  }
+});
 
-const country = ref('');
-const firstName = ref('');
-const lastName = ref('');
-const address = ref('');
-const city = ref('');
-const postalCode = ref('');
+interface Checkout {
+  country: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+  postalCode: string;
+}
+
+const checkout = useCheckoutStore();
+
+const onUpdate = (type: keyof Checkout, data: string) => {
+  (checkout[props.name] as Checkout)[type] = data;
+};
+
+const country = computed<string>({
+  get() {
+    return checkout[props.name].country;
+  },
+  set(value: string) {
+    onUpdate('country', value);
+  }
+});
+
+const firstName = computed<string>({
+  get() {
+    return checkout[props.name].firstName;
+  },
+  set(value: string) {
+    onUpdate('firstName', value);
+  }
+});
+
+const lastName = computed<string>({
+  get() {
+    return checkout[props.name].lastName;
+  },
+  set(value: string) {
+    onUpdate('lastName', value);
+  }
+});
+
+const address = computed<string>({
+  get() {
+    return checkout[props.name].address;
+  },
+  set(value: string) {
+    onUpdate('address', value);
+  }
+});
+
+const city = computed<string>({
+  get() {
+    return checkout[props.name].city;
+  },
+  set(value: string) {
+    onUpdate('city', value);
+  }
+});
+
+const postalCode = computed<string>({
+  get() {
+    return checkout[props.name].postalCode;
+  },
+  set(value: string) {
+    onUpdate('postalCode', value);
+  }
+});
 </script>
 
 <style scoped lang="scss">

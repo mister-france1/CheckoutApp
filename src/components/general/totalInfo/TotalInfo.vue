@@ -16,7 +16,14 @@
 import Item from 'components/general/totalInfo/Item.vue';
 import Total from 'components/general/totalInfo/Total.vue';
 
-const items = [
+interface Item {
+  title: string;
+  price: string;
+  count: number;
+  image: string;
+}
+
+const items: Item[] = [
   {
     title: 'Nike sneakers',
     price: '$120.90',

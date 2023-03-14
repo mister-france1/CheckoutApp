@@ -1,11 +1,11 @@
 <template>
   <div class="shippingInfo">
     <div class="row-wrapper">
-      <Info title="Name:" value="Oleo Bone" />
-      <Info title="Email:" value="oleo_bone@gmail.com" />
+      <Info title="Name:" :value="name" />
+      <Info title="Email:" :value="email" />
     </div>
     <div class="row-wrapper">
-      <Info title="Shipping Address:" value="4140 Parker Rd. Allentown, New Mexico 31134" />
+      <Info title="Shipping Address:" :value="address" />
       <Info title="Billing Address:" value="Same as shipping" />
     </div>
     <div class="row-wrapper">
@@ -16,7 +16,24 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import Info from 'components/thankyou/shippingInfo/Info.vue';
+
+import { useCheckoutStore } from 'stores/checkout-store';
+const checkout = useCheckoutStore();
+
+const name = computed<string>(() => {
+  const { firstName, lastName } = checkout.shippingAddress;
+  return firstName && lastName ? `${firstName} ${lastName}` : 'Oleo Bone';
+});
+
+const email = computed<string>(() => {
+  return `${checkout.email}` || 'oleo_bone@gmail.com';
+});
+
+const address = computed<string>(() => {
+  return `${checkout.shippingAddress.address}` || '4140 Parker Rd. Allentown, New Mexico 31134';
+});
 </script>
 
 <style scoped lang="scss">

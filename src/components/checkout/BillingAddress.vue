@@ -10,17 +10,27 @@
       <RadioGroup v-model="billingAddressSame" :options="options" />
     </div>
     <div v-if="!billingAddressSame">
-      <Address />
+      <Address name="billingAddress" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import RadioGroup from 'components/general/RadioGroup.vue';
 import Address from 'components/general/Address.vue';
+import { useCheckoutStore } from 'stores/checkout-store';
 
-const billingAddressSame = ref(true);
+const checkout = useCheckoutStore();
+
+const billingAddressSame = computed({
+  get() {
+    return checkout.billingAddressSame;
+  },
+  set(value) {
+    checkout.billingAddressSame = value;
+  }
+});
 
 const options = [
   { label: 'Same as shipping address', val: true,  },

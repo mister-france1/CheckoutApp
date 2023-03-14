@@ -5,3 +5,12 @@
   order: 0;
   flex-grow: 0;
 }
+
+@mixin errorText() {
+  @include text();
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: #F53D6B;
+  padding: 5px 0 0;
+}

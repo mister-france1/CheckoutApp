@@ -1,6 +1,6 @@
 <template>
   <div class="checkoutPage">
-    <div class="main">
+    <q-form class="main" ref="checkoutForm" greedy>
       <HeaderCheckout/>
       <CartReserved/>
       <ExpressCheckout/>
@@ -10,9 +10,9 @@
       <PaymentMethod/>
       <BillingAddress/>
       <div class="completeOrderWrapper">
-        <Button class="completeOrder" label="Complete Order" path="upsell" iconRight="arrow-right.svg" />
+        <Button class="completeOrder" label="Complete Order" iconRight="arrow-right.svg" @on-click="onValidate" />
       </div>
-    </div>
+    </q-form>
     <div class="sidebar">
       <TotalInfo />
       <Security class="checkoutSecurityWrapper"/>
@@ -22,6 +22,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, Ref } from 'vue';
+import { Router, useRouter } from 'vue-router';
 import CartReserved from 'components/checkout/CartReserved.vue';
 import HeaderCheckout from 'components/checkout/HeaderCheckout.vue';
 import ExpressCheckout from 'components/checkout/expressCheckout/ExpressCheckout.vue';
@@ -34,6 +36,23 @@ import Button from 'components/general/Button.vue';
 import TotalInfo from 'components/general/totalInfo/TotalInfo.vue';
 import Security from 'components/general/Security.vue';
 import ClubInfo from 'components/checkout/clubInfo/ClubInfo.vue';
+
+interface CheckoutForm {
+  validate: () => Promise<boolean>;
+}
+
+const router: Router = useRouter();
+const checkoutForm: Ref<CheckoutForm | null> = ref(null);
+
+const onValidate = (): void => {
+  if (checkoutForm.value) {
+    checkoutForm.value.validate().then((success: boolean) => {
+      if (success) {
+        router.push('upsell');
+      }
+    });
+  }
+};
 
 </script>
 

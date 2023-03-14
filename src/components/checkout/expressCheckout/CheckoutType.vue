@@ -5,7 +5,11 @@
 </template>
 
 <script setup>
-defineProps(['borderColor', 'backgroundColor', 'image']);
+defineProps({
+  borderColor: String,
+  backgroundColor: String,
+  image: String
+});
 </script>
 
 <style scoped lang="scss">

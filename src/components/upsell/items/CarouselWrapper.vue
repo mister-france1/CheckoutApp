@@ -7,7 +7,8 @@
       ref="carousel"
       infinite
     >
-      <q-carousel-slide :name="1" :img-src="require('assets/items/item4.png')" />
+      <q-carousel-slide v-for="(slide, index) of slideList" :key="index" :name="slide.name"
+                        :img-src="require('assets/items/'+slide.image)"/>
 
       <template v-slot:control>
         <q-carousel-control
@@ -16,7 +17,7 @@
           class="control controlLeft"
         >
           <div @click="$refs.carousel.previous()">
-            <img class="icon" :src="require('assets/carousel/angle-left.svg')" />
+            <img class="icon" :src="require('assets/carousel/angle-left.svg')"/>
           </div>
         </q-carousel-control>
 
@@ -26,7 +27,7 @@
           class="control controlRight"
         >
           <div @click="$refs.carousel.next()">
-            <img class="icon" :src="require('assets/carousel/angle-right.svg')" />
+            <img class="icon" :src="require('assets/carousel/angle-right.svg')"/>
           </div>
         </q-carousel-control>
       </template>
@@ -38,6 +39,17 @@
 import { ref } from 'vue'
 
 const slide = ref(1);
+
+const slideList = [
+  {
+    name: 1,
+    image: 'item4.png'
+  },
+  {
+    name: 2,
+    image: 'item5.jpg'
+  }
+];
 </script>
 
 <style scoped lang="scss">

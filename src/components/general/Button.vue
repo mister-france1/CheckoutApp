@@ -1,5 +1,5 @@
 <template>
-  <div class="button" @click="onRedirect">
+  <div class="button" @click="onClick">
     <img v-if="iconLeft" class="iconLeft" :src="require('assets/'+iconLeft)" />
     <span class="text">
       {{label}}
@@ -16,10 +16,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  path: {
-    type: String,
-    required: true,
-  },
+  path: String,
   iconLeft: {
     type: String,
     default: null
@@ -30,13 +27,16 @@ const props = defineProps({
   },
 });
 
-const router = useRouter();
-const onRedirect = () => {
-  if (typeof props.path !== 'string') {
-    throw new Error('Path must be a string');
-  }
+const emit = defineEmits(['onClick']);
 
-  router.push(props.path);
+const router = useRouter();
+
+const onClick = () => {
+  if (props.path) {
+    router.push(props.path);
+  } else {
+    emit('onClick');
+  }
 };
 </script>
 

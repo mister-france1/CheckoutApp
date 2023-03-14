@@ -18,7 +18,12 @@
 </template>
 
 <script setup lang="ts">
-defineProps(['title', 'price', 'count', 'image']);
+defineProps({
+  title: String,
+  price: String,
+  count: Number,
+  image: String
+});
 </script>
 
 <style scoped lang="scss">

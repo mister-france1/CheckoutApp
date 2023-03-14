@@ -6,7 +6,9 @@
 </template>
 
 <script setup lang="ts">
-defineProps(['title']);
+defineProps({
+  title: String
+});
 </script>
 
 <style scoped lang="scss">

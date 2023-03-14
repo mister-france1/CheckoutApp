@@ -7,21 +7,21 @@
       All transaction are secured and encryted
     </div>
     <div class="row-wrapper">
-      <Input v-model="card" label="Card Number" type="text" icon="card.svg" mask="card"/>
+      <Input v-model="card" label="Card Number" type="text" icon="card.svg" mask="card" required="Enter a card number"/>
     </div>
     <div class="row-wrapper">
-      <Input v-model="nameCard" label="Name on Card" type="text" icon="name.svg"/>
+      <Input v-model="nameCard" label="Name on Card" type="text" icon="name.svg" required="Enter a name on card"/>
     </div>
     <div class="row-wrapper">
       <div class="col">
-        <Input v-model="date" label="MM/YY" type="text" mask="##/##"/>
+        <Input v-model="date" label="MM/YY" type="text" mask="##/##" required="Enter a date" />
       </div>
       <div class="col">
-        <Input v-model="cvv" label="CVV" type="text" mask="###"/>
+        <Input v-model="cvv" label="CVV" type="text" mask="###" required="Enter a CVV"/>
       </div>
     </div>
     <div class="row-wrapper">
-      <Checkbox v-model="agreements">
+      <Checkbox v-model="agreements" required="Agreements is required">
         <div class="agreementsContent">
           By checking this box, I acknowledge that I have read and agree to the <span class="highlighted">Terms of Service</span>,
           and <span class="highlighted">Monthly Billing Terms</span> of this website and want to opt-in for the monthly
@@ -34,15 +34,69 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import Input from 'components/general/Input.vue';
 import Checkbox from 'components/general/Checkbox.vue';
+import { useCheckoutStore } from 'stores/checkout-store';
 
-const card = ref();
-const nameCard = ref();
-const date = ref();
-const cvv = ref();
-const agreements = ref(false);
+interface Checkout {
+  card: string;
+  nameCard: string;
+  date: string;
+  cvv: string;
+  agreements: boolean;
+}
+
+const checkout = useCheckoutStore();
+
+const onUpdate = (type: keyof Checkout, data: string | boolean) => {
+  checkout.paymentMethod[type] = data;
+};
+
+const card = computed<string>({
+  get() {
+    return checkout.paymentMethod.cardNumber;
+  },
+  set(value: string) {
+    onUpdate('cardNumber', value);
+  }
+});
+
+const nameCard = computed<string>({
+  get() {
+    return checkout.paymentMethod.nameCard;
+  },
+  set(value: string) {
+    onUpdate('nameCard', value);
+  }
+});
+
+const date = computed<string>({
+  get() {
+    return checkout.paymentMethod.nameCard;
+  },
+  set(value: string) {
+    onUpdate('date', value);
+  }
+});
+
+const cvv = computed<string>({
+  get() {
+    return checkout.paymentMethod.nameCard;
+  },
+  set(value: string) {
+    onUpdate('cvv', value);
+  }
+});
+
+const agreements = computed<boolean>({
+  get() {
+    return checkout.paymentMethod.agreements;
+  },
+  set(value: boolean) {
+    onUpdate('agreements', value);
+  }
+});
 </script>
 
 <style scoped lang="scss">

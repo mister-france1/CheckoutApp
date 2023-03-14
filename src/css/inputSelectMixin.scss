@@ -16,6 +16,21 @@
   .q-field__control {
     border-radius: 100px;
     color: #D6D8EE;
+
+    &.text-negative {
+      &:after {
+        border-width: 1.5px;
+      }
+    }
+  }
+
+  .q-field__bottom {
+    &:empty {
+      height: 0;
+      background: red;
+    }
+
+    @include errorText();
   }
 
   &.q-field--outlined .q-field__control:before,
@@ -52,9 +67,6 @@
   .q-field__prepend {
     padding-right: 10px;
     pointer-events: none;
-  }
-
-  .q-field__control-container {
   }
 
   &.notEmpty {

@@ -8,10 +8,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useCheckoutStore } from 'stores/checkout-store';
 import RadioGroup from 'components/general/RadioGroup.vue';
 
-const shippingMethod = ref(10);
+const checkout = useCheckoutStore();
+
+const shippingMethod = computed({
+  get() {
+    return checkout.shippingMethod;
+  },
+  set(value) {
+    checkout.shippingMethod = value;
+  }
+});
 
 const options = [
   { label: 'Free shipping', price: '$10', val: 10,  },

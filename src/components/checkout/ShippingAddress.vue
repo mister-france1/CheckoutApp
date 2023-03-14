@@ -3,7 +3,7 @@
     <div class="title">
       Shipping Address
     </div>
-    <Address />
+    <Address name="shippingAddress" />
   </div>
 </template>
 
