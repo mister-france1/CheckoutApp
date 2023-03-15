@@ -2,7 +2,7 @@
   <q-select v-model="value"
             :label="label"
             :type="type"
-            lazy-rules="ondemand"
+            lazy-rules
             :rules="rules"
             :class="['select', {'notEmpty': !!modelValue, 'noIcon': !icon}]"
             rounded

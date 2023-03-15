@@ -7,14 +7,15 @@
       All transaction are secured and encryted
     </div>
     <div class="row-wrapper">
-      <Input v-model="card" label="Card Number" type="text" icon="card.svg" mask="card" required="Enter a card number"/>
+      <Input v-model="card" label="Card Number" type="text" icon="card.svg" mask="card" required="Enter a card number"
+             :validators="cardValidators"/>
     </div>
     <div class="row-wrapper">
       <Input v-model="nameCard" label="Name on Card" type="text" icon="name.svg" required="Enter a name on card"/>
     </div>
     <div class="row-wrapper">
       <div class="col">
-        <Input v-model="date" label="MM/YY" type="text" mask="##/##" required="Enter a date" />
+        <Input v-model="date" label="MM/YY" type="text" mask="##/##" required="Enter a date"/>
       </div>
       <div class="col">
         <Input v-model="cvv" label="CVV" type="text" mask="###" required="Enter a CVV"/>
@@ -28,7 +29,6 @@
           billed Dream Collection Club®
         </div>
       </Checkbox>
-
     </div>
   </div>
 </template>
@@ -40,17 +40,28 @@ import Checkbox from 'components/general/Checkbox.vue';
 import { useCheckoutStore } from 'stores/checkout-store';
 
 interface Checkout {
-  card: string;
+  cardNumber: string;
   nameCard: string;
   date: string;
   cvv: string;
   agreements: boolean;
 }
 
+const cardValidators = [
+  (cardNumber: string) => /^(\d{4}\s){3}\d{4}$/.test(cardNumber) || 'Enter valid card number'
+];
+
 const checkout = useCheckoutStore();
 
 const onUpdate = (type: keyof Checkout, data: string | boolean) => {
-  checkout.paymentMethod[type] = data;
+  switch (type) {
+    case 'agreements':
+      checkout.paymentMethod.agreements = data as boolean;
+      break;
+    default:
+      checkout.paymentMethod[type] = data as string;
+      break;
+  }
 };
 
 const card = computed<string>({
@@ -101,6 +112,7 @@ const agreements = computed<boolean>({
 
 <style scoped lang="scss">
 @import './src/css/mixins';
+@import 'src/css/variables';
 
 .paymentMethod {
   margin-bottom: 50px;
@@ -154,10 +166,46 @@ const agreements = computed<boolean>({
       color: #4B4E68;
 
       .highlighted {
+        font-weight: 600;
         color: #000034;
       }
     }
   }
+}
 
+@media screen and (max-width: $wideTablet) {
+  .paymentMethod {
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .paymentMethod {
+    margin-bottom: 30px;
+
+    .title {
+      font-size: 20px;
+      line-height: 30px;
+    }
+
+    .info {
+      margin-bottom: 30px;
+    }
+
+    .row-wrapper {
+      display: block;
+
+      .col {
+        &:first-child {
+          margin-right: 0;
+          margin-bottom: 20px;
+        }
+
+        &:last-child {
+          margin-left: 0;
+        }
+      }
+    }
+  }
 }
 </style>

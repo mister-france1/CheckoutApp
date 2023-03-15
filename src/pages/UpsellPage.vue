@@ -29,10 +29,13 @@ import Button from 'components/general/Button.vue';
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
+
 .upsellPage {
   display: flex;
   justify-content: center;
   cursor: default;
+  padding: 0 40px;
 
   .main {
     margin: 60px 0 204px;
@@ -88,6 +91,50 @@ import Button from 'components/general/Button.vue';
         font-size: 18px;
         line-height: 24px;
         color: #4B4E68;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .upsellPage {
+    .main {
+      .additionalInfo {
+        flex-direction: column;
+        margin-bottom: 40px;
+
+        ::v-deep(.security) {
+          max-width: unset;
+        }
+
+        ::v-deep(.supportWrapper) {
+          margin: 20px 0 0;
+          max-width: unset;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .upsellPage {
+    padding: 0 16px;
+
+    .main {
+      margin: 60px 0 46px;
+
+      .additionalInfo {
+        margin-bottom: 30px;
+
+        ::v-deep(.supportWrapper) {
+          padding: 16px;
+        }
+      }
+
+      .controlsWrapper {
+        .completeUpsell {
+          width: 100%;
+        }
       }
     }
   }

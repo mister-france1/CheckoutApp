@@ -26,9 +26,13 @@ import PhoneNumber from 'components/general/PhoneNumber.vue';
 
 import { useCheckoutStore } from 'stores/checkout-store';
 
+interface PhoneNumber {
+  countryCode: string;
+  number: string;
+}
 interface Checkout {
   email: string;
-  phoneNumber: string;
+  phoneNumber: PhoneNumber;
 }
 
 const emailValidators = [
@@ -37,12 +41,21 @@ const emailValidators = [
 
 const checkout = useCheckoutStore();
 
-const onUpdate = (type: keyof Checkout, data: string) => {
-  checkout[type] = data;
+const onUpdate = (type: keyof Checkout, data: string | PhoneNumber) => {
+  switch (type) {
+    case 'phoneNumber':
+      checkout.phoneNumber = data as PhoneNumber;
+      break;
+    default:
+      (checkout[type] as string) = data as string;
+      break;
+  }
 };
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
+
 .contactInfo {
   margin-bottom: 50px;
 
@@ -61,6 +74,22 @@ const onUpdate = (type: keyof Checkout, data: string) => {
 
     &:last-child {
       margin-bottom: unset;
+    }
+  }
+}
+@media screen and (max-width: $wideTablet) {
+  .contactInfo {
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .contactInfo {
+    margin-bottom: 30px;
+
+    .title {
+      font-size: 20px;
+      line-height: 30px;
     }
   }
 }

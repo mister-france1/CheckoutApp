@@ -15,8 +15,9 @@
           position="left"
           :offset="[30, 0]"
           class="control controlLeft"
+          @click="$refs.carousel.previous()"
         >
-          <div @click="$refs.carousel.previous()">
+          <div>
             <img class="icon" :src="require('assets/carousel/angle-left.svg')"/>
           </div>
         </q-carousel-control>
@@ -25,8 +26,9 @@
           position="right"
           :offset="[30, 0]"
           class="control controlRight"
+          @click="$refs.carousel.next()"
         >
-          <div @click="$refs.carousel.next()">
+          <div>
             <img class="icon" :src="require('assets/carousel/angle-right.svg')"/>
           </div>
         </q-carousel-control>
@@ -36,11 +38,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const slide = ref(1);
+interface Slide {
+  name: number;
+  image: string;
+}
 
-const slideList = [
+const slide = ref<number>(1);
+
+const slideList: Slide[] = [
   {
     name: 1,
     image: 'item4.png'
@@ -53,6 +60,8 @@ const slideList = [
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
+
 .carouselWrapper {
   margin-bottom: 30px;
 
@@ -85,6 +94,14 @@ const slideList = [
 
     .controlRight {
       background-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .carouselWrapper {
+    .q-carousel {
+      height: 226px;
     }
   }
 }

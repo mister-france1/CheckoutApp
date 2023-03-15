@@ -48,9 +48,12 @@ defineProps({
   }
 
   &.totalBold {
-    .title,
-    .value {
+    .title {
       font-weight: 500;
+    }
+
+    .value {
+      font-weight: 600;
     }
   }
 }

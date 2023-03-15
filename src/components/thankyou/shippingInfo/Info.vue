@@ -13,6 +13,7 @@ defineProps({
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
 .infoWrapper {
   display: flex;
   flex-direction: column;
@@ -31,6 +32,14 @@ defineProps({
     font-weight: 500;
     color: #000034;
     max-width: 200px;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .infoWrapper {
+    .value {
+      max-width: unset;
+    }
   }
 }
 </style>

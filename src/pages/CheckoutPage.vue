@@ -2,6 +2,7 @@
   <div class="checkoutPage">
     <q-form class="main" ref="checkoutForm" greedy>
       <HeaderCheckout/>
+      <OrderSummary/>
       <CartReserved/>
       <ExpressCheckout/>
       <ContactInformation/>
@@ -12,10 +13,11 @@
       <div class="completeOrderWrapper">
         <Button class="completeOrder" label="Complete Order" iconRight="arrow-right.svg" @on-click="onValidate" />
       </div>
+      <Security class="checkoutSecurityWrapperMobile"/>
     </q-form>
     <div class="sidebar">
       <TotalInfo />
-      <Security class="checkoutSecurityWrapper"/>
+      <Security class="securityWrapper"/>
       <ClubInfo />
     </div>
   </div>
@@ -36,6 +38,7 @@ import Button from 'components/general/Button.vue';
 import TotalInfo from 'components/general/totalInfo/TotalInfo.vue';
 import Security from 'components/general/Security.vue';
 import ClubInfo from 'components/checkout/clubInfo/ClubInfo.vue';
+import OrderSummary from 'components/general/OrderSummary.vue';
 
 interface CheckoutForm {
   validate: () => Promise<boolean>;
@@ -57,6 +60,7 @@ const onValidate = (): void => {
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
 .checkoutPage {
   display: flex;
   cursor: default;
@@ -67,7 +71,7 @@ const onValidate = (): void => {
     align-items: flex-end;
     flex: 1;
     margin-top: 60px;
-    padding-right: 60px;
+    padding: 0 60px 0 40px;
 
     .completeOrderWrapper {
       display: flex;
@@ -82,6 +86,10 @@ const onValidate = (): void => {
       max-width: 540px;
       width: 100%;
     }
+
+    .checkoutSecurityWrapperMobile {
+      display: none;
+    }
   }
 
   .sidebar {
@@ -89,7 +97,7 @@ const onValidate = (): void => {
     flex-direction: column;
     align-items: flex-start;
     flex: 1;
-    padding: 65px 0 0 60px;
+    padding: 65px 40px 0 60px;
     background-color: #EBECF3;
 
     > * {
@@ -97,8 +105,61 @@ const onValidate = (): void => {
       width: 100%;
     }
 
-    .checkoutSecurityWrapper {
+    .securityWrapper {
       margin-bottom: 15px;
+    }
+  }
+}
+
+@media screen and (max-width: $smallDesktop) {
+  .checkoutPage {
+    .main {
+      padding: 0 40px;
+    }
+
+    .sidebar {
+      padding: 65px 40px 0 40px;
+    }
+  }
+}
+
+@media screen and (max-width: $wideTablet) {
+  .checkoutPage {
+    .main {
+      align-items: center;
+
+      .completeOrderWrapper {
+        .completeOrder {
+          max-width: 540px;
+          width: 100%;
+          margin-bottom: 40px;
+        }
+      }
+
+      .checkoutSecurityWrapperMobile {
+        display: block;
+        margin-bottom: 167px;
+      }
+    }
+
+    .sidebar {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .checkoutPage {
+    padding: 0 16px;
+
+    .main {
+      padding: 0;
+
+      .completeOrderWrapper {
+        .completeOrder {
+          margin-bottom: 30px;
+        }
+      }
     }
   }
 }

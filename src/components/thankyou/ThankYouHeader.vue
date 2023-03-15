@@ -24,6 +24,7 @@ import Button from 'components/general/Button.vue';
 
 <style scoped lang="scss">
 @import './src/css/mixins';
+@import 'src/css/variables';
 
 .thankYouHeader {
   display: flex;
@@ -75,6 +76,12 @@ import Button from 'components/general/Button.vue';
     justify-content: flex-start;
     width: 229px;
     margin-bottom: 50px;
+  }
+}
+
+@media screen and (max-width: $wideTablet) {
+  .thankYouHeader {
+    margin-top: 40px;
   }
 }
 </style>

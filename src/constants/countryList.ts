@@ -1,4 +1,4 @@
-const countryList = [
+const countryList: string[] = [
   'Afghanistan',
   'Albania',
   'Algeria',

@@ -21,25 +21,33 @@ import RadioGroup from 'components/general/RadioGroup.vue';
 import Address from 'components/general/Address.vue';
 import { useCheckoutStore } from 'stores/checkout-store';
 
+interface Option {
+  label: string;
+  val: boolean;
+  color?: string;
+}
+
 const checkout = useCheckoutStore();
 
-const billingAddressSame = computed({
+const billingAddressSame = computed<boolean>({
   get() {
     return checkout.billingAddressSame;
   },
-  set(value) {
+  set(value: boolean) {
     checkout.billingAddressSame = value;
   }
 });
 
-const options = [
-  { label: 'Same as shipping address', val: true,  },
+const options: Option[] = [
+  { label: 'Same as shipping address', val: true },
   { label: 'Use a different billing address', val: false, color: '#4B4E68' }
 ];
 </script>
 
 <style scoped lang="scss">
 @import './src/css/mixins';
+@import 'src/css/variables';
+
 .billingAddress {
   margin-bottom: 50px;
 
@@ -64,6 +72,25 @@ const options = [
 
     &.billingAddressDifferent {
       margin-bottom: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: $wideTablet) {
+  .billingAddress {
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .billingAddress {
+    margin-bottom: 30px;
+
+    .billingOptions {
+      .title {
+        font-size: 20px;
+        line-height: 30px;
+      }
     }
   }
 }

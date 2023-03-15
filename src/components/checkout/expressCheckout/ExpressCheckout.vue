@@ -42,10 +42,11 @@ const checkoutTypes: CheckoutType[] = [
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
+
 .expressCheckout {
   box-sizing: border-box;
-  width: 540px;
-  height: 160px;
+  max-width: 540px;
   background: #FFFFFF;
   border: 1px solid #D6D8EE;
   border-radius: 32px;
@@ -65,6 +66,27 @@ const checkoutTypes: CheckoutType[] = [
   .checkoutTypes {
     display: flex;
     justify-content: space-between;
+  }
+}
+@media screen and (max-width: $wideTablet) {
+  .expressCheckout {
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .expressCheckout {
+    .checkoutTypes {
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .expressCheckout {
+    margin-bottom: 30px;
+    padding: 16px;
   }
 }
 </style>

@@ -21,6 +21,7 @@
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
 @import './src/css/mixins';
 
 .headerCheckout {
@@ -50,6 +51,23 @@
 
     .secondLevel {
       color: #000034;
+    }
+  }
+}
+
+@media screen and (max-width: $wideTablet) {
+  .headerCheckout {
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .headerCheckout {
+    margin-bottom: 30px;
+
+    .title {
+      font-size: 30px;
+      line-height: 40px;
     }
   }
 }

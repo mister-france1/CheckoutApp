@@ -14,6 +14,8 @@
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
+
 .upsellInfo {
   font-family: 'Poppins';
   font-style: normal;
@@ -22,5 +24,20 @@
   line-height: 28px;
   color: #4B4E68;
   margin-bottom: 40px;
+}
+
+@media screen and (max-width: $tablet) {
+  .upsellInfo {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .upsellInfo {
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 30px;
+  }
 }
 </style>

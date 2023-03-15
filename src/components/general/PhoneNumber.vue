@@ -93,6 +93,7 @@ watch(
         background-color: #EFF0F5;
         color: transparent;
         margin: 0 3px;
+        border-radius: 28px 0 0 28px
       }
     }
   }

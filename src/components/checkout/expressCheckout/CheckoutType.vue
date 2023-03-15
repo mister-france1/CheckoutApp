@@ -13,6 +13,8 @@ defineProps({
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
+
 .checkoutType {
   display: flex;
   justify-content: center;
@@ -25,5 +27,11 @@ defineProps({
   border-width: 1px;
   border-style: solid;
   border-radius: 16px;
+}
+
+@media screen and (max-width: $tablet) {
+  .checkoutType {
+    margin: 0 12px 12px 0;
+  }
 }
 </style>

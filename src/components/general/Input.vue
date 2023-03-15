@@ -3,7 +3,7 @@
            :label="label"
            :type="type"
            :mask="mask"
-           lazy-rules="ondemand"
+           lazy-rules
            :rules="rules"
            :class="['input', {'notEmpty': !!modelValue, 'noIcon': !icon}]"
            rounded

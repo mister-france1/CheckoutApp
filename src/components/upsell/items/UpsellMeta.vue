@@ -26,11 +26,12 @@ import Quantity from 'components/upsell/items/Quantity.vue';
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
 .upsellMeta {
   height: 225px;
   background: #FFFFFF;
   border: 1px solid #DADDF5;
-  box-shadow: 0px 10px 30px rgba(22, 8, 49, 0.05);
+  box-shadow: 0 10px 30px rgba(22, 8, 49, 0.05);
   border-radius: 16px;
   padding: 45px 125px 40px;
   margin-bottom: 40px;
@@ -89,6 +90,28 @@ import Quantity from 'components/upsell/items/Quantity.vue';
       line-height: 30px;
       color: #4B4E68;
       margin-right: 39px;
+    }
+  }
+}
+
+@media screen and (max-width: $wideTablet) {
+  .upsellMeta {
+    padding: 45px 40px 40px;
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .upsellMeta {
+    padding: 45px 16px 40px;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .upsellMeta {
+    .quantityWrapper {
+      .title {
+        margin-right: 30px;
+      }
     }
   }
 }

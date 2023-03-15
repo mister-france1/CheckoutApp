@@ -37,6 +37,7 @@ const address = computed<string>(() => {
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
 .shippingInfo {
   display: flex;
   flex-direction: column;
@@ -54,6 +55,21 @@ const address = computed<string>(() => {
 
     &:last-child {
       margin-bottom: unset;
+    }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .shippingInfo {
+    padding: 30px 16px 14px;
+
+    .row-wrapper {
+      flex-direction: column;
+      margin-bottom: unset;
+
+      > * {
+        margin-bottom: 16px;
+      }
     }
   }
 }

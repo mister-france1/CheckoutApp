@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import ClubInfoOption from 'components/checkout/clubInfo/ClubInfoOption.vue';
 
-const options = ['Extra 10$ off!', 'Free shipping on marked club items!', 'Free returns on marked club items!'];
+const options: string[] = ['Extra 10$ off!', 'Free shipping on marked club items!', 'Free returns on marked club items!'];
 </script>
 
 <style scoped lang="scss">

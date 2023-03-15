@@ -10,22 +10,24 @@
     </div>
     <div class="paymentWrapper">
       <div class="paymentList">
-        <img v-for="(payment, index) of payments" :key="index" :src="require('assets/security/'+payment+'.svg')"/>
+        <img v-for="(payment, index) of payments" :key="index" :src="require('assets/security/'+payment+'.svg')" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const payments = ['master-card', 'visa', 'paypal', 'amex', 'jcb', 'dci'];
+const payments: string[] = ['master-card', 'visa', 'paypal', 'amex', 'jcb', 'dci'];
 </script>
 
 <style scoped lang="scss">
 @import '../../css/mixins';
+@import 'src/css/variables';
 
 .security {
   box-sizing: border-box;
-  width: 449px;
+  max-width: 449px;
+  width: 100%;
   background: #FFFFFF;
   border: 1px solid #D6D8EA;
   border-radius: 32px;
@@ -33,6 +35,7 @@ const payments = ['master-card', 'visa', 'paypal', 'amex', 'jcb', 'dci'];
 
   .header {
     display: flex;
+    justify-content: center;
     margin-bottom: 12px;
 
     .lock {
@@ -58,6 +61,12 @@ const payments = ['master-card', 'visa', 'paypal', 'amex', 'jcb', 'dci'];
       display: flex;
       justify-content: space-between;
     }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .security {
+    padding: 24px 16px 22px;
   }
 }
 </style>

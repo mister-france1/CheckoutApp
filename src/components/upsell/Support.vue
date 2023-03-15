@@ -18,14 +18,16 @@
 .supportWrapper {
   display: flex;
   align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   background: #FFFFFF;
   border: 1px solid #DADDF5;
-  box-shadow: 0px 10px 30px rgba(22, 8, 49, 0.05);
+  box-shadow: 0 10px 30px rgba(22, 8, 49, 0.05);
   border-radius: 16px;
-  padding: 35px 52px 35px 57px;
-  height: 140px;
+  padding: 35px 0;
   margin-left: 30px;
+  width: 100%;
+  max-width: 285px;
 
   .imageWrapper {
     margin-right: 33px;

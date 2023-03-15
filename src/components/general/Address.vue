@@ -48,15 +48,20 @@ interface Checkout {
   postalCode: string;
 }
 
+interface Address {
+  shippingAddress: string;
+  billingAddress: string;
+}
+
 const checkout = useCheckoutStore();
 
 const onUpdate = (type: keyof Checkout, data: string) => {
-  (checkout[props.name] as Checkout)[type] = data;
+  checkout[props.name as keyof Address][type] = data;
 };
 
 const country = computed<string>({
   get() {
-    return checkout[props.name].country;
+    return checkout[props.name as keyof Address].country;
   },
   set(value: string) {
     onUpdate('country', value);
@@ -65,7 +70,7 @@ const country = computed<string>({
 
 const firstName = computed<string>({
   get() {
-    return checkout[props.name].firstName;
+    return checkout[props.name as keyof Address].firstName;
   },
   set(value: string) {
     onUpdate('firstName', value);
@@ -74,7 +79,7 @@ const firstName = computed<string>({
 
 const lastName = computed<string>({
   get() {
-    return checkout[props.name].lastName;
+    return checkout[props.name as keyof Address].lastName;
   },
   set(value: string) {
     onUpdate('lastName', value);
@@ -83,7 +88,7 @@ const lastName = computed<string>({
 
 const address = computed<string>({
   get() {
-    return checkout[props.name].address;
+    return checkout[props.name as keyof Address].address;
   },
   set(value: string) {
     onUpdate('address', value);
@@ -92,7 +97,7 @@ const address = computed<string>({
 
 const city = computed<string>({
   get() {
-    return checkout[props.name].city;
+    return checkout[props.name as keyof Address].city;
   },
   set(value: string) {
     onUpdate('city', value);
@@ -101,7 +106,7 @@ const city = computed<string>({
 
 const postalCode = computed<string>({
   get() {
-    return checkout[props.name].postalCode;
+    return checkout[props.name as keyof Address].postalCode;
   },
   set(value: string) {
     onUpdate('postalCode', value);
@@ -110,6 +115,8 @@ const postalCode = computed<string>({
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
+
 .address {
   .countryWrapper {
     margin-bottom: 30px;
@@ -133,6 +140,25 @@ const postalCode = computed<string>({
 
       &:last-child {
         margin-left: 8px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .address {
+    .row-wrapper {
+      display: block;
+
+      .col {
+        &:first-child {
+          margin-right: 0;
+          margin-bottom: 20px;
+        }
+
+        &:last-child {
+          margin-left: 0;
+        }
       }
     }
   }

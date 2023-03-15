@@ -1,13 +1,13 @@
 <template>
   <div class="quantity">
-    <div class="minusWrapper">
-      <img :src="require('assets/quantity/minus.svg')" @click="onDecreaseCount" />
+    <div class="minusWrapper" @click="onDecreaseCount">
+      <img :src="require('assets/quantity/minus.svg')"/>
     </div>
     <div class="value">
       {{count}}
     </div>
-    <div class="plusWrapper">
-      <img :src="require('assets/quantity/plus.svg')" @click="onIncreaseCount" />
+    <div class="plusWrapper" @click="onIncreaseCount">
+      <img :src="require('assets/quantity/plus.svg')"/>
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const count = ref(1);
+const count = ref<number>(1);
 
 const onDecreaseCount = () => {
   if (count.value === 1) {
@@ -32,6 +32,7 @@ const onIncreaseCount = () => {
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/variables';
 .quantity {
   display: flex;
 
@@ -45,6 +46,7 @@ const onIncreaseCount = () => {
     height: 50px;
     background: #FFFFFF;
     border-radius: 16px;
+    user-select: none;
   }
 
   .minusWrapper {
@@ -64,6 +66,18 @@ const onIncreaseCount = () => {
 
   .plusWrapper {
     margin-left: 30px;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .quantity {
+    .minusWrapper {
+      margin-right: 20px;
+    }
+
+    .plusWrapper {
+      margin-left: 20px;
+    }
   }
 }
 </style>
